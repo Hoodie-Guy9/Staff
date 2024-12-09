@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chill n' Chat - Staff Application</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #2b2b44);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: #1e1e2f;
+            border: 1px solid #444;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #7289da;
+            font-size: 2rem;
+        }
+
+        /* Form Elements */
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #bbb;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        input, select, textarea {
+            background-color: #292942;
+            color: #ffffff;
+            outline: none;
+            transition: all 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border: 1px solid #7289da;
+            box-shadow: 0 0 8px #7289da;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            background-color: #7289da;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #5a6abf;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .footer a {
+            color: #7289da;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chill n' Chat</h1>
+        <h2>Staff Application</h2>
+        <form id="staffApplicationForm">
+            <label for="discordUsername">Discord Username (with #1234):</label>
+            <input type="text" id="discordUsername" name="discordUsername" placeholder="e.g., User#1234" required>
+
+            <label for="age">Your Age:</label>
+            <input type="number" id="age" name="age" min="13" placeholder="e.g., 18" required>
+
+            <label for="availability">How many hours can you moderate weekly?</label>
+            <select id="availability" name="availability" required>
+                <option value="5-10">5-10 hours</option>
+                <option value="10-20">10-20 hours</option>
+                <option value="20+">20+ hours</option>
+            </select>
+
+            <label for="experience">Do you have prior moderation experience? If yes, please describe:</label>
+            <textarea id="experience" name="experience" rows="4" placeholder="Explain your experience..." required></textarea>
+
+            <label for="why">Why do you want to join our staff team?</label>
+            <textarea id="why" name="why" rows="4" placeholder="Share your motivation..." required></textarea>
+
+            <label for="skills">What makes you a good fit for this role?</label>
+            <textarea id="skills" name="skills" rows="4" placeholder="Highlight your skills..." required></textarea>
+
+            <button type="submit">Submit Application</button>
+        </form>
+        <div class="footer">
+            <p>Powered by <a href="https://discord.gg/n4DCCBjet5">Chill n' Chat</a>. All Rights Reserved.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('staffApplicationForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const applicationData = Object.fromEntries(formData);
+
+            const response = await fetch('https://your-backend-url.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(applicationData)
+            });
+
+            if (response.ok) {
+                alert('Application submitted successfully! Thank you!');
+                this.reset();
+            } else {
+                alert('Oops! Something went wrong. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
